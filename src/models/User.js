@@ -22,4 +22,30 @@ export class UserModel {
       throw error;
     }
   }
+
+  static async deleteUser( idUser ){
+    try {
+      const deletedUser = await firestoreDB
+        .collection( "users" )
+        .doc( idUser )
+        .delete();
+
+      return deletedUser;
+    } catch (error) {
+        console.error("Error Delete user:", error);
+      throw error;
+    }
+  }
+
+  static async updateUser( idUser, updateData ){
+    try {
+      const refData = firestoreDB.collection( 'users' ).doc( idUser );
+      const updateUser = await refData.update( updateData );
+
+      return updateUser;
+    } catch (error) {
+      console.error("Error Update user:", error);
+      throw error;
+    }
+  }
 }
